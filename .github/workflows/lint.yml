@@ -1,0 +1,31 @@
+name: C# Lint Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Run C# Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x' # or 7.0, etc.
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build with Analyzers
+        run: dotnet build --no-restore -warnaserror
+
+      # Optional: Fail on warnings only
+      - name: Run format check (optional)
+        run: dotnet format --verify-no-changes --severity warn

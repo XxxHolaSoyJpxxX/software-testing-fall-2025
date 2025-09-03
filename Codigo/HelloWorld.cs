@@ -1,10 +1,12 @@
 using System;
 
-public class HelloWorld
+namespace HelloWorldApp
 {
-	static void Main(string[] args)
-	{
-		Console.WriteLine("HelloWorld");
-	}
-
-}	
+    internal static class Program
+    {
+        private static void Main()
+        {
+            Console.WriteLine("Hello, world!");
+        }
+    }
+}
