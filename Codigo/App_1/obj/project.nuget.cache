@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "DgrT5QSYzX8=",
+  "success": true,
+  "projectFilePath": "D:\\Users\\Jp\\Documents\\Programacion\\software-testing-fall-2025\\Codigo\\App_1\\ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jp\\.nuget\\packages\\stylecop.analyzers\\1.2.0-beta.435\\stylecop.analyzers.1.2.0-beta.435.nupkg.sha512",
+    "C:\\Users\\Jp\\.nuget\\packages\\stylecop.analyzers.unstable\\1.2.0.435\\stylecop.analyzers.unstable.1.2.0.435.nupkg.sha512"
+  ],
+  "logs": []
+}
