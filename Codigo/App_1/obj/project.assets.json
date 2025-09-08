@@ -55,9 +55,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
-      "StyleCop.Analyzers >= 1.2.0-beta.435"
-    ]
+    "net8.0": ["StyleCop.Analyzers >= 1.2.0-beta.435"]
   },
   "packageFolders": {
     "C:\\Users\\Jp\\.nuget\\packages\\": {},
@@ -80,9 +78,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
-      "originalTargetFrameworks": [
-        "net8.0"
-      ],
+      "originalTargetFrameworks": ["net8.0"],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
@@ -94,9 +90,7 @@
         }
       },
       "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
+        "warnAsError": ["NU1605"]
       },
       "restoreAuditProperties": {
         "enableAudit": "true",
