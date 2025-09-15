@@ -1,4 +1,17 @@
-exclude: ^(Codigo/.*\.json$|CSharpProjects/|.*\.cs$|.*\.csproj$|.*\.sln$|bin/|obj/)
+exclude: >
+  (^Codigo/.*\.json$)|
+  (^CSharpProjects/)|
+  (.*\.cs$)|
+  (.*\.csproj$)|
+  (.*\.sln$)|
+  (^.*(/bin/|/obj/).*)|
+  (.*\.user$)|
+  (.*\.suo$)|
+  (.*\.cache$)|
+  (.*\.log$)|
+  (.*\.tmp$)|
+  (.*\.editorconfig$)|
+  (.*GeneratedMSBuildEditorConfig\.editorconfig$)
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

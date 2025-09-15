@@ -19,6 +19,8 @@ project.lock.json
 project.fragment.lock.json
 *.log
 StyleCopReport.xml
+**/obj/
+
 
 # JetBrains Rider / IntelliJ
 .idea/
