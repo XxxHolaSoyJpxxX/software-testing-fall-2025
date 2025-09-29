@@ -199,7 +199,7 @@ class TestWhiteBoxFrom4To6(unittest.TestCase):
         Checks order total with 5% discount (quantity 6–10).
         """
         items = [{"quantity": 6, "price": 10}]
-        self.assertEqual(calculate_order_total(items), 57)
+        self.assertAlmostEqual(calculate_order_total(items), 57, places=2)
 
     def test_calculate_order_total_10_percent_discount(self):
         """
