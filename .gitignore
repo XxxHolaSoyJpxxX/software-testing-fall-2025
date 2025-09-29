@@ -6,8 +6,11 @@
 *.suo
 *.userprefs
 *.sln.iml
-bin/
-obj/
+
+# Ignorar cualquier carpeta bin y obj en cualquier nivel
+**/bin/
+**/obj/
+
 Debug/
 Release/
 artifacts/
