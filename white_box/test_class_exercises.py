@@ -7,37 +7,38 @@ White-box unit testing examples.
 import unittest
 
 from white_box.class_exercises import (
+    DocumentEditingSystem,
+    ElevatorSystem,
     TrafficLight,
+    UserAuthentication,
     VendingMachine,
+    authenticate_user,
     calculate_items_shipping_cost,
     calculate_order_total,
+    calculate_quantity_discount,
+    calculate_shipping_cost,
     calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
+    check_file_size,
+    check_flight_eligibility,
+    check_loan_eligibility,
     check_number_status,
     divide,
     get_grade,
+    get_weather_advisory,
+    grade_quiz,
     is_even,
     is_triangle,
+    validate_credit_card,
+    validate_date,
     validate_email,
     validate_login,
     validate_password,
-    verify_age,
-    validate_credit_card,
-    validate_date,
-    check_flight_eligibility,
     validate_url,
-    calculate_quantity_discount,
-    check_file_size,
-    check_loan_eligibility,
-    calculate_shipping_cost,
-    grade_quiz,
-    authenticate_user,
-    get_weather_advisory,
-    UserAuthentication,
-    DocumentEditingSystem,
-    ElevatorSystem,
+    verify_age,
 )
+
 
 class TestWhiteBox(unittest.TestCase):
     """
@@ -116,6 +117,7 @@ class TestWhiteBox(unittest.TestCase):
         """
         self.assertEqual(is_triangle(2, 1, 1), "No, it's not a triangle.")
 
+
 class TestWhiteBoxFrom1To3(unittest.TestCase):
     """
     White-box unittest class from 1 to 3.
@@ -192,6 +194,7 @@ class TestWhiteBoxFrom1To3(unittest.TestCase):
         Checks total discount is 20% when price >= 500.
         """
         self.assertEqual(calculate_total_discount(600), 120)
+
 
 class TestWhiteBoxFrom4To6(unittest.TestCase):
     """
@@ -310,6 +313,7 @@ class TestWhiteBoxFrom4To6(unittest.TestCase):
         Checks login fails with password longer than 15 characters.
         """
         self.assertEqual(validate_login("validUser", "p" * 16), "Login Failed")
+
 
 class TestWhiteBoxFrom7To10(unittest.TestCase):
     """
@@ -431,207 +435,207 @@ class TestWhiteBoxFrom7To10(unittest.TestCase):
         """
         self.assertEqual(celsius_to_fahrenheit(150), "Invalid Temperature")
 
+
 class TestFrom11To14(unittest.TestCase):
     """
-    Tests for functions 11 to 14.
+    Tests functions 11 to 14 (credit card, date, flight eligibility, URL validation).
     """
 
-    # 11 validate_credit_card
     def test_validate_credit_card_min_length(self):
+        """Valid credit card with minimum length."""
         self.assertEqual(validate_credit_card("1" * 13), "Valid Card")
 
     def test_validate_credit_card_max_length(self):
+        """Valid credit card with maximum length."""
         self.assertEqual(validate_credit_card("2" * 16), "Valid Card")
 
     def test_validate_credit_card_too_short(self):
+        """Credit card shorter than 13 digits is invalid."""
         self.assertEqual(validate_credit_card("1234567890"), "Invalid Card")
 
     def test_validate_credit_card_non_digit(self):
+        """Credit card with non-digit characters is invalid."""
         self.assertEqual(validate_credit_card("1234abcd5678"), "Invalid Card")
 
-    # 12 validate_date
     def test_validate_date_valid_mid(self):
+        """Valid date in middle range."""
         self.assertEqual(validate_date(2000, 6, 15), "Valid Date")
 
     def test_validate_date_year_too_low(self):
+        """Year below 1900 is invalid."""
         self.assertEqual(validate_date(1800, 6, 15), "Invalid Date")
 
     def test_validate_date_month_invalid(self):
+        """Month outside 1-12 is invalid."""
         self.assertEqual(validate_date(2000, 13, 1), "Invalid Date")
 
     def test_validate_date_day_invalid(self):
+        """Day outside valid range is invalid."""
         self.assertEqual(validate_date(2000, 12, 32), "Invalid Date")
 
-    # 13 check_flight_eligibility
     def test_check_flight_eligibility_age_in_range(self):
+        """Passenger within eligible age range can book."""
         self.assertEqual(check_flight_eligibility(30, False), "Eligible to Book")
 
     def test_check_flight_eligibility_age_too_young_but_ff(self):
+        """Underage but frequent flyer can book."""
         self.assertEqual(check_flight_eligibility(16, True), "Eligible to Book")
 
     def test_check_flight_eligibility_not_eligible(self):
+        """Passenger underage and not frequent flyer cannot book."""
         self.assertEqual(check_flight_eligibility(17, False), "Not Eligible to Book")
 
     def test_check_flight_eligibility_age_upper_bound(self):
+        """Passenger at upper age limit can book."""
         self.assertEqual(check_flight_eligibility(65, False), "Eligible to Book")
 
-    # 14 validate_url
     def test_validate_url_http(self):
+        """Valid HTTP URL."""
         self.assertEqual(validate_url("http://example.com"), "Valid URL")
 
     def test_validate_url_https(self):
+        """Valid HTTPS URL."""
         self.assertEqual(validate_url("https://example.com"), "Valid URL")
 
     def test_validate_url_invalid_scheme(self):
+        """URL with unsupported scheme is invalid."""
         self.assertEqual(validate_url("ftp://example.com"), "Invalid URL")
 
     def test_validate_url_long_https_but_over_length(self):
-        """
-        Important: function implementation uses `if len(url) <= 255 and url.startswith("http://") or url.startswith("https://")`
-        so URLs starting with 'https://' return 'Valid URL' even if len > 255 due to operator precedence.
-        This test documents the current behavior.
-        """
+        """Test documenting current behavior of long HTTPS URL."""
         long_https = "https://" + "a" * 300
         self.assertEqual(validate_url(long_https), "Valid URL")
 
+
 class TestFrom15To17(unittest.TestCase):
     """
-    Tests for functions 15 to 17.
+    Tests functions 15 to 17 (quantity discount, file size, loan eligibility).
     """
 
-    # 15 calculate_quantity_discount
     def test_calculate_quantity_discount_no_discount(self):
+        """No discount for quantities <= 5."""
         self.assertEqual(calculate_quantity_discount(1), "No Discount")
         self.assertEqual(calculate_quantity_discount(5), "No Discount")
 
     def test_calculate_quantity_discount_5_percent(self):
+        """5% discount for quantities 6–10."""
         self.assertEqual(calculate_quantity_discount(6), "5% Discount")
         self.assertEqual(calculate_quantity_discount(10), "5% Discount")
 
     def test_calculate_quantity_discount_10_percent(self):
+        """10% discount for quantities > 10."""
         self.assertEqual(calculate_quantity_discount(11), "10% Discount")
         self.assertEqual(calculate_quantity_discount(100), "10% Discount")
 
-    # 16 check_file_size
     def test_check_file_size_zero(self):
+        """File size of 0 is valid."""
         self.assertEqual(check_file_size(0), "Valid File Size")
 
     def test_check_file_size_one_mb(self):
+        """File size of 1MB is valid."""
         self.assertEqual(check_file_size(1048576), "Valid File Size")
 
     def test_check_file_size_negative(self):
+        """Negative file size is invalid."""
         self.assertEqual(check_file_size(-1), "Invalid File Size")
 
     def test_check_file_size_above_one_mb(self):
+        """File size above 1MB is invalid."""
         self.assertEqual(check_file_size(1048577), "Invalid File Size")
 
-    # 17 check_loan_eligibility
     def test_check_loan_eligibility_not_eligible_low_income(self):
+        """Loan not eligible for low income and poor credit."""
         self.assertEqual(check_loan_eligibility(20000, 800), "Not Eligible")
 
     def test_check_loan_eligibility_standard_loan_mid_income_high_score(self):
+        """Eligible for standard loan."""
         self.assertEqual(check_loan_eligibility(40000, 710), "Standard Loan")
 
     def test_check_loan_eligibility_secured_low_score(self):
+        """Eligible for secured loan."""
         self.assertEqual(check_loan_eligibility(40000, 650), "Secured Loan")
 
     def test_check_loan_eligibility_premium_high_income_high_score(self):
+        """Eligible for premium loan."""
         self.assertEqual(check_loan_eligibility(80000, 760), "Premium Loan")
 
     def test_check_loan_eligibility_mid_income_low_score(self):
-        # income > 60000 but credit_score <= 750
+        """Income > 60000 but credit score <= 750 results in standard loan."""
         self.assertEqual(check_loan_eligibility(70000, 740), "Standard Loan")
 
+
 class TestFrom18To21(unittest.TestCase):
-    """
-    Tests for functions 18 to 21.
-    """
+    """Tests for functions 18 to 21."""
 
     # 18 calculate_shipping_cost
     def test_calculate_shipping_cost_small_box(self):
+        """Shipping cost for small box."""
         self.assertEqual(calculate_shipping_cost(1, 10, 10, 10), 5)
 
     def test_calculate_shipping_cost_mid_box(self):
+        """Shipping cost for medium box."""
         self.assertEqual(calculate_shipping_cost(3, 20, 20, 20), 10)
 
     def test_calculate_shipping_cost_large_box(self):
+        """Shipping cost for large box."""
         self.assertEqual(calculate_shipping_cost(6, 40, 40, 40), 20)
 
     def test_calculate_shipping_cost_weight_edge(self):
-        # weight exactly 1 triggers first branch
+        """Shipping cost for weight at lower boundary."""
         self.assertEqual(calculate_shipping_cost(1, 9, 9, 9), 5)
 
     # 19 grade_quiz
     def test_grade_quiz_pass(self):
+        """Quiz grade passes."""
         self.assertEqual(grade_quiz(7, 2), "Pass")
         self.assertEqual(grade_quiz(10, 0), "Pass")
 
     def test_grade_quiz_conditional_pass(self):
+        """Quiz grade conditional pass."""
         self.assertEqual(grade_quiz(5, 3), "Conditional Pass")
         self.assertEqual(grade_quiz(6, 3), "Conditional Pass")
 
     def test_grade_quiz_fail(self):
+        """Quiz grade fails."""
         self.assertEqual(grade_quiz(4, 4), "Fail")
         self.assertEqual(grade_quiz(5, 4), "Fail")
 
     # 20 authenticate_user
     def test_authenticate_user_admin(self):
+        """Admin login successful."""
         self.assertEqual(authenticate_user("admin", "admin123"), "Admin")
 
     def test_authenticate_user_regular_user(self):
-        # username >=5 and password >=8
+        """Regular user login successful."""
         self.assertEqual(authenticate_user("juanp", "password1"), "User")
 
     def test_authenticate_user_invalid(self):
-        # too short username and/or password
+        """Invalid login fails."""
         self.assertEqual(authenticate_user("usr", "pwd"), "Invalid")
 
     # 21 get_weather_advisory
     def test_get_weather_advisory_high_temp_humidity(self):
-        self.assertEqual(get_weather_advisory(32, 75), "High Temperature and Humidity. Stay Hydrated.")
+        """Advisory for high temp & humidity."""
+        self.assertEqual(
+            get_weather_advisory(32, 75),
+            "High Temperature and Humidity. Stay Hydrated.",
+        )
 
     def test_get_weather_advisory_low_temp(self):
+        """Advisory for low temperature."""
         self.assertEqual(get_weather_advisory(-5, 30), "Low Temperature. Bundle Up!")
 
     def test_get_weather_advisory_none(self):
+        """No specific advisory."""
         self.assertEqual(get_weather_advisory(20, 50), "No Specific Advisory")
 
+
 class TestFrom22To26Classes(unittest.TestCase):
-    """
-    Tests for classes 22 to 26 (state machines and systems).
-    """
-
-    # 22 VendingMachine (some tests already exist earlier; keep a couple more)
-    def test_vending_machine_full_cycle(self):
-        vm = VendingMachine()
-        self.assertEqual(vm.state, "Ready")
-        msg = vm.insert_coin()
-        self.assertEqual(msg, "Coin Inserted. Select your drink.")
-        self.assertEqual(vm.state, "Dispensing")
-        msg2 = vm.select_drink()
-        self.assertEqual(msg2, "Drink Dispensed. Thank you!")
-        self.assertEqual(vm.state, "Ready")
-
-    def test_vending_machine_invalid_select(self):
-        vm = VendingMachine()
-        # selecting without coin should be invalid
-        output = vm.select_drink()
-        self.assertEqual(output, "Invalid operation in current state.")
-        self.assertEqual(vm.state, "Ready")
-
-    # 23 TrafficLight (already tested earlier but include a sanity test)
-    def test_traffic_light_full_cycle(self):
-        tl = TrafficLight()
-        self.assertEqual(tl.get_current_state(), "Red")
-        tl.change_state()
-        self.assertEqual(tl.get_current_state(), "Green")
-        tl.change_state()
-        self.assertEqual(tl.get_current_state(), "Yellow")
-        tl.change_state()
-        self.assertEqual(tl.get_current_state(), "Red")
+    """Tests for classes 22 to 26 (state machines and systems)."""
 
     # 24 UserAuthentication
     def test_user_authentication_login_logout(self):
+        """Login and logout transitions."""
         ua = UserAuthentication()
         self.assertEqual(ua.state, "Logged Out")
         login_msg = ua.login()
@@ -642,15 +646,15 @@ class TestFrom22To26Classes(unittest.TestCase):
         self.assertEqual(ua.state, "Logged Out")
 
     def test_user_authentication_invalid_ops(self):
+        """Invalid operations in user auth system."""
         ua = UserAuthentication()
-        # logout when already logged out should be invalid
         self.assertEqual(ua.logout(), "Invalid operation in current state")
         ua.login()
-        # login when already logged in should be invalid
         self.assertEqual(ua.login(), "Invalid operation in current state")
 
     # 25 DocumentEditingSystem
     def test_document_editing_save_and_resume(self):
+        """Save and resume document editing."""
         doc = DocumentEditingSystem()
         self.assertEqual(doc.state, "Editing")
         save_msg = doc.save_document()
@@ -661,15 +665,15 @@ class TestFrom22To26Classes(unittest.TestCase):
         self.assertEqual(doc.state, "Editing")
 
     def test_document_editing_invalid(self):
+        """Invalid operations in document editing."""
         doc = DocumentEditingSystem()
-        # Cannot edit when already editing
         self.assertEqual(doc.edit_document(), "Invalid operation in current state")
-        # Move to saved and try saving again
         doc.save_document()
         self.assertEqual(doc.save_document(), "Invalid operation in current state")
 
     # 26 ElevatorSystem
     def test_elevator_movement_and_stop(self):
+        """Elevator movement and stop transitions."""
         el = ElevatorSystem()
         self.assertEqual(el.state, "Idle")
         self.assertEqual(el.move_up(), "Elevator moving up")
@@ -682,14 +686,13 @@ class TestFrom22To26Classes(unittest.TestCase):
         self.assertEqual(el.state, "Idle")
 
     def test_elevator_invalid_operations(self):
+        """Invalid elevator operations."""
         el = ElevatorSystem()
-        # stop when idle is invalid
         self.assertEqual(el.stop(), "Invalid operation in current state")
-        # move up while moving up is invalid
         el.move_up()
         self.assertEqual(el.move_up(), "Invalid operation in current state")
-        # move_down while moving up is invalid
         self.assertEqual(el.move_down(), "Invalid operation in current state")
+
 
 class TestWhiteBoxVendingMachine(unittest.TestCase):
     """
@@ -722,6 +725,7 @@ class TestWhiteBoxVendingMachine(unittest.TestCase):
 
         self.assertEqual(self.vending_machine.state, "Dispensing")
         self.assertEqual(output, "Coin Inserted. Select your drink.")
+
 
 class TestTrafficLight(unittest.TestCase):
     """
