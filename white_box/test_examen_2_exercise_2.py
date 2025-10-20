@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
+"""Unit tests for Song and SongStore classes."""
+# pylint: disable=R0903
+# pylint: disable=unused-argument
+
 import unittest
-from unittest import mock
 from unittest.mock import patch
 
-from white_box.examen_2_exercise_2 import (
-    Song,
-	SongStore,
-    main,
-)
+from white_box.examen_2_exercise_2 import Song, SongStore, main
 
 
 class TestSongStore(unittest.TestCase):
@@ -28,7 +27,6 @@ class TestSongStore(unittest.TestCase):
         mock_print.assert_any_call("Album: Album X")
         mock_print.assert_any_call("Year: 2000")
 
-	
     @patch("builtins.print")
     def test_add_song(self, mock_print):
         """Test adding a song to the store."""
@@ -68,14 +66,22 @@ class TestSongStore(unittest.TestCase):
         self.store.search_song("Nonexistent")
         mock_print.assert_any_call("No song found with title 'Nonexistent'.")
 
-    @patch("builtins.input", side_effect=[
-        "3", "New Song", "Author C", "Album Z", "2010",
-        "1",
-        "2", "New Song",
-        "4"
-    ])
     @patch("builtins.print")
-    def test_main_flow(self, mock_print, mock_input):
+    @patch(
+        "builtins.input",
+        side_effect=[
+            "3",
+            "New Song",
+            "Author C",
+            "Album Z",
+            "2010",
+            "1",
+            "2",
+            "New Song",
+            "4",
+        ],
+    )
+    def test_main_flow(self, mock_input, mock_print):
         """Test main function flow."""
         main()
         mock_print.assert_any_call("Song 'New Song' added to the store.")
@@ -83,5 +89,3 @@ class TestSongStore(unittest.TestCase):
         mock_print.assert_any_call("Title: New Song")
         mock_print.assert_any_call("Found 1 song(s) with title 'New Song':")
         mock_print.assert_any_call("Exiting...")
-
-
