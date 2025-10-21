@@ -7,7 +7,9 @@ def fizz_buzz(n):
     """Devuelve 'Fizz', 'Buzz' o 'FizzBuzz' según el valor de n."""
     var = ""
     if n % 3 == 0:
-        var.join("fizz")
+        var += "fizz"
     if n % 5 == 0:
-        var.join("buzz")
+        var += "buzz"
+    if var == "":
+        return n
     return var

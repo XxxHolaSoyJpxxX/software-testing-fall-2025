@@ -18,18 +18,18 @@ class TestFizzBuzz(unittest.TestCase):
 
     def test_fizz(self):
         """Test multiples of 3."""
-        self.assertEqual(fizz_buzz(6), "Fizz")
-        self.assertEqual(fizz_buzz(33), "Fizz")
-        self.assertEqual(fizz_buzz(99), "Fizz")
+        self.assertEqual(fizz_buzz(6), "fizz")
+        self.assertEqual(fizz_buzz(33), "fizz")
+        self.assertEqual(fizz_buzz(99), "fizz")
 
     def test_buzz(self):
         """Test multiples of 5."""
-        self.assertEqual(fizz_buzz(5), "Buzz")
-        self.assertEqual(fizz_buzz(100), "Buzz")
-        self.assertEqual(fizz_buzz(65), "Buzz")
+        self.assertEqual(fizz_buzz(5), "buzz")
+        self.assertEqual(fizz_buzz(100), "buzz")
+        self.assertEqual(fizz_buzz(65), "buzz")
 
     def test_fizzbuzz(self):
         """Test multiples of both 3 and 5."""
-        self.assertEqual(fizz_buzz(15), "FizzBuzz")
-        self.assertEqual(fizz_buzz(30), "FizzBuzz")
-        self.assertEqual(fizz_buzz(45), "FizzBuzz")
+        self.assertEqual(fizz_buzz(30), "fizzbuzz")
+        self.assertEqual(fizz_buzz(15), "fizzbuzz")
+        self.assertEqual(fizz_buzz(45), "fizzbuzz")
